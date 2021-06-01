@@ -1,4 +1,5 @@
 import Canvas from './Canvas'
+import document from './document'
 
 import CommonComputedStyle from './style/CommonComputedStyle'
 import getImageComputedStyle from './style/ImageComputedStyle'
@@ -67,6 +68,17 @@ function focus() {}
 
 function blur() {}
 
+function addEventListener(type, listener) {
+    document.addEventListener(type, listener)
+}
+
+function removeEventListener(type, listener) {
+    document.removeEventListener(type, listener)
+}
+
+function dispatchEvent() { }
+
+
 if (platform !== 'devtools') {
     const wxPerf = wx.getPerformance ? wx.getPerformance() : Date;
     const consoleTimers = {};
@@ -109,9 +121,11 @@ const _setInterval = setInterval;
 const _clearInterval = clearInterval;
 const _requestAnimationFrame = requestAnimationFrame;
 const _cancelAnimationFrame = cancelAnimationFrame;
+const _wx = wx;
 
 export {
     canvas,
+    document,
     alert,
     focus,
     blur,
@@ -124,5 +138,11 @@ export {
     _setInterval as setInterval,
     _clearInterval as clearInterval,
     _requestAnimationFrame as requestAnimationFrame,
-    _cancelAnimationFrame as cancelAnimationFrame
+    _cancelAnimationFrame as cancelAnimationFrame,
+
+    addEventListener,
+    removeEventListener,
+    dispatchEvent,
+
+    _wx as wx
 }
