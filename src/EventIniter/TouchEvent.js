@@ -19,7 +19,10 @@ function eventHandlerFactory(type) {
     return (rawEvent) => {
         const event = new TouchEvent(type)
 
-        event.changedTouches = rawEvent.changedTouches
+        event.changedTouches = rawEvent.changedTouches.map((touch) => {
+            touch.target = event.target
+            return touch
+        })
         event.touches = rawEvent.touches
         event.targetTouches = Array.prototype.slice.call(rawEvent.touches)
         event.timeStamp = rawEvent.timeStamp

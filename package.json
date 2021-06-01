@@ -11,7 +11,7 @@
     "build": "webpack --hide-modules --config build/webpack.config.js",
     "test": "jest"
   },
-  "author": "linkqjlin",
+  "author": "linkqjlin; Xiande Wen <xiandepaul.wen@gmail.com>",
   "license": "MIT",
   "devDependencies": {
     "babel-core": "^6.13.2",
