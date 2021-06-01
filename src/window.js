@@ -33,18 +33,18 @@ const { platform } = wx.getSystemInfoSync()
 
 // 暴露全局的 canvas
 GameGlobal.screencanvas = GameGlobal.screencanvas || new Canvas()
-const canvas = GameGlobal.screencanvas;
+const canvas = GameGlobal.screencanvas
 
 function getComputedStyle(dom) {
-    const tagName = dom.tagName;
+    const tagName = dom.tagName
 
-    if (tagName === "CANVAS") {
-        return getCanvasComputedStyle(dom);
-    } else if (tagName === "IMG") {
-        return getImageComputedStyle(dom);
+    if (tagName === 'CANVAS') {
+        return getCanvasComputedStyle(dom)
+    } else if (tagName === 'IMG') {
+        return getImageComputedStyle(dom)
     }
 
-    return CommonComputedStyle;
+    return CommonComputedStyle
 }
 
 function scrollTo(x, y) {
@@ -57,11 +57,11 @@ function scrollTo(x, y) {
 }
 
 function scrollBy(dx, dy) {
-    window.scrollTo(window.scrollX + dx, window.scrollY + dy);
+    window.scrollTo(window.scrollX + dx, window.scrollY + dy)
 }
 
 function alert(msg) {
-    console.log(msg);
+    console.log(msg)
 }
 
 function focus() {}
@@ -78,36 +78,38 @@ function removeEventListener(type, listener) {
 
 function dispatchEvent() { }
 
-
 if (platform !== 'devtools') {
-    const wxPerf = wx.getPerformance ? wx.getPerformance() : Date;
-    const consoleTimers = {};
+    const wxPerf = wx.getPerformance ? wx.getPerformance() : Date
+    const consoleTimers = {}
+
     console.time = function(name) {
-        consoleTimers[name] = wxPerf.now();
-    };
+        consoleTimers[name] = wxPerf.now()
+    }
 
     console.timeEnd = function(name) {
-        const timeStart = consoleTimers[name];
-        if(!timeStart) {
-            return;
+        const timeStart = consoleTimers[name]
+
+        if (!timeStart) {
+            return
         }
 
-        const timeElapsed = wxPerf.now() - timeStart;
-        console.log(name + ": " + timeElapsed / 1000 + "ms");
-        delete consoleTimers[name];
-    };
+        const timeElapsed = wxPerf.now() - timeStart
+
+        console.log(name + ': ' + timeElapsed / 1000 + 'ms')
+        delete consoleTimers[name]
+    }
 }
 
 function eventHandlerFactory() {
     return (res) => {
         const event = new Event('resize')
 
-        event.target = window;
-        event.timeStamp = Date.now();
-        event.res = res;
-        event.windowWidth = res.windowWidth;
-        event.windowHeight = res.windowHeight;
-        document.dispatchEvent(event);
+        event.target = window
+        event.timeStamp = Date.now()
+        event.res = res
+        event.windowWidth = res.windowWidth
+        event.windowHeight = res.windowHeight
+        document.dispatchEvent(event)
     }
 }
 
@@ -115,13 +117,13 @@ if (wx.onWindowResize) {
     wx.onWindowResize(eventHandlerFactory())
 }
 
-const _setTimeout = setTimeout;
-const _clearTimeout = clearTimeout;
-const _setInterval = setInterval;
-const _clearInterval = clearInterval;
-const _requestAnimationFrame = requestAnimationFrame;
-const _cancelAnimationFrame = cancelAnimationFrame;
-const _wx = wx;
+const _setTimeout = setTimeout
+const _clearTimeout = clearTimeout
+const _setInterval = setInterval
+const _clearInterval = clearInterval
+const _requestAnimationFrame = requestAnimationFrame
+const _cancelAnimationFrame = cancelAnimationFrame
+const _wx = wx
 
 export {
     canvas,

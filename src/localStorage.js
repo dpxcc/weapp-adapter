@@ -1,6 +1,7 @@
 const localStorage = {
     get length() {
         const { keys } = wx.getStorageInfoSync()
+
         return keys.length
     },
 
@@ -11,8 +12,9 @@ const localStorage = {
     },
 
     getItem(key) {
-        const value = wx.getStorageSync(key);
-        return value === "" ? null : value;
+        const value = wx.getStorageSync(key)
+
+        return value === '' ? null : value
     },
 
     setItem(key, value) {

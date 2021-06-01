@@ -1,12 +1,12 @@
 const location = {
-  href: 'game.js',
+    href: 'game.js',
 
-  reload() {
-  },
+    reload() {
+    },
 
-  replace(href) {
-    this.href = href
-  },
+    replace(href) {
+        this.href = href
+    },
 }
 
 export default location

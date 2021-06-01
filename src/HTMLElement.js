@@ -3,7 +3,6 @@ import * as Mixin from './util/mixin'
 import Element from './Element'
 
 export default class HTMLElement extends Element {
-
     constructor(tagName = '', level) {
         super()
 
@@ -22,11 +21,11 @@ export default class HTMLElement extends Element {
 
         this.tagName = tagName.toUpperCase()
 
-        Mixin.parentNode(this, level);
-        Mixin.style(this);
-        Mixin.classList(this);
-        Mixin.clientRegion(this);
-        Mixin.offsetRegion(this);
-        Mixin.scrollRegion(this);
+        Mixin.parentNode(this, level)
+        Mixin.style(this)
+        Mixin.classList(this)
+        Mixin.clientRegion(this)
+        Mixin.offsetRegion(this)
+        Mixin.scrollRegion(this)
     }
 }

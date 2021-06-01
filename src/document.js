@@ -31,7 +31,7 @@ const document = {
     parentElement: null,
 
     createElement(tagName) {
-        tagName = tagName.toLowerCase();
+        tagName = tagName.toLowerCase()
         if (tagName === 'canvas') {
             return new Canvas()
         } else if (tagName === 'audio') {
@@ -46,12 +46,12 @@ const document = {
     },
 
     createElementNS(nameSpace, tagName) {
-        return this.createElement(tagName);
+        return this.createElement(tagName)
     },
 
     createTextNode(text) {
         // TODO: Do we need the TextNode Class ???
-        return text;
+        return text
     },
 
     getElementById(id) {
@@ -62,7 +62,7 @@ const document = {
     },
 
     getElementsByTagName(tagName) {
-        tagName = tagName.toLowerCase();
+        tagName = tagName.toLowerCase()
         if (tagName === 'head') {
             return [document.head]
         } else if (tagName === 'body') {
@@ -74,7 +74,7 @@ const document = {
     },
 
     getElementsByTagNameNS(nameSpace, tagName) {
-        return this.getElementsByTagName(tagName);
+        return this.getElementsByTagName(tagName)
     },
 
     getElementsByName(tagName) {
@@ -133,7 +133,7 @@ const document = {
     },
 
     dispatchEvent(event) {
-        const type = event.type;
+        const type = event.type
         const listeners = events[type]
 
         if (listeners) {
@@ -153,31 +153,30 @@ document.head = new HTMLElement('head')
 document.body = new Body()
 
 function onVisibilityChange(visible) {
-
     return function() {
+        document.visibilityState = visible ? 'visible' : 'hidden'
 
-        document.visibilityState = visible ? 'visible' : 'hidden';
+        const hidden = !visible
 
-        const hidden = !visible;
         if (document.hidden === hidden) {
-            return;
+            return
         }
-        document.hidden = hidden;
+        document.hidden = hidden
 
-        const event = new Event('visibilitychange');
+        const event = new Event('visibilitychange')
 
-        event.target = document;
-        event.timeStamp = Date.now();
+        event.target = document
+        event.timeStamp = Date.now()
 
-        document.dispatchEvent(event);
+        document.dispatchEvent(event)
     }
 }
 
 if (wx.onHide) {
-    wx.onHide(onVisibilityChange(false));
+    wx.onHide(onVisibilityChange(false))
 }
 if (wx.onShow) {
-    wx.onShow(onVisibilityChange(true));
+    wx.onShow(onVisibilityChange(true))
 }
 
 export default document

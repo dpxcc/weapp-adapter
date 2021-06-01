@@ -46,7 +46,7 @@ module.exports = {
     },
 
     plugins: [
-        // new ESLintPlugin(),
+        new ESLintPlugin(),
         new CleanWebpackPlugin()
     ]
 }

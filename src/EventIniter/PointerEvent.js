@@ -2,7 +2,6 @@ import { noop } from '../util/index.js'
 import Event from '../Event'
 
 export default class PointerEvent extends Event {
-
     constructor(type) {
         super(type)
 
@@ -10,7 +9,6 @@ export default class PointerEvent extends Event {
         this.currentTarget = window.canvas
     }
 }
-
 
 const CLONE_PROPS = [
 
@@ -45,7 +43,7 @@ const CLONE_PROPS = [
     'pageX',
     'pageY',
     'timeStamp'
-];
+]
 
 const CLONE_DEFAULTS = [
 
@@ -83,93 +81,95 @@ const CLONE_DEFAULTS = [
     0,
     0,
     0
-];
+]
 
-const POINTER_TYPE = 'touch';
+const POINTER_TYPE = 'touch'
 
 function touchToPointer(type, touch, rawEvent) {
-    const e = new PointerEvent(type);
+    const e = new PointerEvent(type)
 
     for (let i = 0; i < CLONE_PROPS.length; i++) {
-        const p = CLONE_PROPS[i];
-        e[p] = touch[p] || CLONE_DEFAULTS[i];
+        const p = CLONE_PROPS[i]
+
+        e[p] = touch[p] || CLONE_DEFAULTS[i]
     }
 
-    e.type = type;
-    e.target = window.canvas;
-    e.currentTarget = window.canvas;
-    e.buttons = typeToButtons(type);
-    e.which = e.buttons;
+    e.type = type
+    e.target = window.canvas
+    e.currentTarget = window.canvas
+    e.buttons = typeToButtons(type)
+    e.which = e.buttons
 
-    e.pointerId = (touch.identifier || 0) + 2;
-    e.bubbles = true;
-    e.cancelable = true;
+    e.pointerId = (touch.identifier || 0) + 2
+    e.bubbles = true
+    e.cancelable = true
     // e.detail = this.clickCount;
-    e.button = 0;
+    e.button = 0
 
-    e.width = (touch.radiusX || 0.5) * 2;
-    e.height = (touch.radiusY || 0.5) * 2;
-    e.pressure = touch.force || 0.5;
-    e.isPrimary = isPrimaryPointer(touch);
-    e.pointerType = POINTER_TYPE;
+    e.width = (touch.radiusX || 0.5) * 2
+    e.height = (touch.radiusY || 0.5) * 2
+    e.pressure = touch.force || 0.5
+    e.isPrimary = isPrimaryPointer(touch)
+    e.pointerType = POINTER_TYPE
 
     // forward modifier keys
-    e.altKey = rawEvent.altKey;
-    e.ctrlKey = rawEvent.ctrlKey;
-    e.metaKey = rawEvent.metaKey;
-    e.shiftKey = rawEvent.shiftKey;
+    e.altKey = rawEvent.altKey
+    e.ctrlKey = rawEvent.ctrlKey
+    e.metaKey = rawEvent.metaKey
+    e.shiftKey = rawEvent.shiftKey
 
     if (rawEvent.preventDefault) {
         e.preventDefault = function() {
-            rawEvent.preventDefault();
-        };
+            rawEvent.preventDefault()
+        }
     }
 
-    return e;
+    return e
 }
 
 function typeToButtons(type) {
-    let ret = 0;
+    let ret = 0
+
     if (type === 'touchstart' || type === 'touchmove' || type === 'pointerdown' || type === 'pointermove') {
-        ret = 1;
+        ret = 1
     }
-    return ret;
+    return ret
 }
 
-let firstPointer = null;
+let firstPointer = null
 
 function isPrimaryPointer(touch) {
-    return firstPointer === touch.identifier;
+    return firstPointer === touch.identifier
 }
 
 function setPrimaryPointer(touch) {
     if (firstPointer === null) {
-        firstPointer = touch.identifier;
+        firstPointer = touch.identifier
     }
 }
 
 function removePrimaryPointer(touch) {
     if (firstPointer === touch.identifier) {
-        firstPointer = null;
+        firstPointer = null
     }
 }
 
 function eventHandlerFactory(type) {
     return (rawEvent) => {
-
-        const changedTouches = rawEvent.changedTouches;
+        const changedTouches = rawEvent.changedTouches
 
         for (let i = 0; i < changedTouches.length; i++) {
-            const touch = changedTouches[i];
+            const touch = changedTouches[i]
 
             if (i === 0 && type === 'pointerdown') {
-                setPrimaryPointer(touch);
+                setPrimaryPointer(touch)
             } else if (type === 'pointerup' || type === 'pointercancel') {
-                removePrimaryPointer(touch);
+                removePrimaryPointer(touch)
             }
 
-            const event = touchToPointer(type, touch, rawEvent);
-            document.dispatchEvent(event);
+            const event = touchToPointer(type, touch, rawEvent)
+
+            document.dispatchEvent(event)
         }
     }
 }

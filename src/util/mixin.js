@@ -2,7 +2,7 @@ import { innerWidth, innerHeight } from '../WindowProperties'
 
 export function parentNode(obj, level) {
     if (!('parentNode' in obj)) {
-        let _parent;
+        let _parent
 
         if (level === 0) {
             _parent = function() {
@@ -26,7 +26,7 @@ export function parentNode(obj, level) {
     }
 
     if (!('parentElement' in obj)) {
-        let _parent;
+        let _parent
 
         if (level === 0) {
             _parent = function() {
@@ -82,6 +82,7 @@ export function clientRegion(obj) {
                 width: this.clientWidth,
                 height: this.clientHeight
             }
+
             ret.right = ret.width
             ret.bottom = ret.height
 
@@ -114,6 +115,7 @@ export function scrollRegion(obj) {
 
 export function classList(obj) {
     const noop = function() {}
+
     obj.classList = []
     obj.classList.add = noop
     obj.classList.remove = noop

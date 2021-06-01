@@ -1,21 +1,20 @@
 import './webapp-adapter/index.js'
 import './my-game.js'
 
-
 try {
-    window.PointerEvent = null;
+    window.PointerEvent = null
 } catch (e) {
-    console.log("Can't remove PointerEvent");
+    console.log("Can't remove PointerEvent")
 }
 
 try {
-    window.performance = null;
+    window.performance = null
 } catch (e) {
-    console.log("Can't remove window.performance");
+    console.log("Can't remove window.performance")
 }
 
 setTimeout(function() {
     if (window.start) {
-        window.start();
+        window.start()
     }
-}, 10);
+}, 10)

@@ -2,7 +2,6 @@ import { noop } from './util/index.js'
 
 export default class Event {
     constructor(type) {
-
         this.cancelBubble = false
         this.cancelable = false
         this.target = null

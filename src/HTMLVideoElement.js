@@ -1,8 +1,7 @@
-import HTMLMediaElement from './HTMLMediaElement';
+import HTMLMediaElement from './HTMLMediaElement'
 
-export default class HTMLVideoElement extends HTMLMediaElement
-{
-    constructor(){
+export default class HTMLVideoElement extends HTMLMediaElement {
+    constructor() {
         super('video')
     }
-};
+}

@@ -1,5 +1,4 @@
 export default class Worker {
-
     constructor(file) {
         this.onmessage = null
 

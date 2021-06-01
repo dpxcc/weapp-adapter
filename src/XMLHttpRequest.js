@@ -15,19 +15,18 @@ function _triggerEvent(type, event = {}) {
 function _changeReadyState(readyState, event = {}) {
     this.readyState = readyState
 
-    event.readyState = readyState;
+    event.readyState = readyState
 
     _triggerEvent.call(this, 'readystatechange', event)
 }
 
 function _isRelativePath(url) {
-    return !(/^(http|https|ftp|wxfile):\/\/.*/i.test(url));
+    return !(/^(http|https|ftp|wxfile):\/\/.*/i).test(url)
 }
 
 export default class XMLHttpRequest extends EventTarget {
-
     constructor() {
-        super();
+        super()
 
         /*
          * TODO 这一批事件应该是在 XMLHttpRequestEventTarget.prototype 上面的
@@ -78,7 +77,7 @@ export default class XMLHttpRequest extends EventTarget {
         return _responseHeader.get(this)[header]
     }
 
-    open(method, url /* async, user, password 这几个参数在小程序内不支持*/ ) {
+    open(method, url /* async, user, password 这几个参数在小程序内不支持*/) {
         this._method = method
         this._url = url
         _changeReadyState.call(this, XMLHttpRequest.OPENED)
@@ -96,7 +95,8 @@ export default class XMLHttpRequest extends EventTarget {
             const dataType = this.dataType
 
             const relative = _isRelativePath(url)
-            let encoding;
+
+            let encoding
 
             if (responseType === 'arraybuffer') {
                 // encoding = 'binary'
@@ -104,11 +104,11 @@ export default class XMLHttpRequest extends EventTarget {
                 encoding = 'utf8'
             }
 
-            delete this.response;
-            this.response = null;
+            delete this.response
+            this.response = null
 
             const onSuccess = ({ data, statusCode, header }) => {
-                statusCode = statusCode === undefined ? 200 : statusCode;
+                statusCode = statusCode === undefined ? 200 : statusCode
                 if (typeof data !== 'string' && !(data instanceof ArrayBuffer)) {
                     try {
                         data = JSON.stringify(data)
@@ -132,9 +132,9 @@ export default class XMLHttpRequest extends EventTarget {
                         enumerable: true,
                         configurable: true,
                         get: function() {
-                            throw "InvalidStateError : responseType is " + this.responseType;
+                            throw 'InvalidStateError : responseType is ' + this.responseType
                         }
-                    });
+                    })
                 } else {
                     this.responseText = data
                 }
@@ -162,15 +162,16 @@ export default class XMLHttpRequest extends EventTarget {
             }
 
             if (relative) {
-                const fs = wx.getFileSystemManager();
+                const fs = wx.getFileSystemManager()
 
                 var options = {
                     'filePath': url,
                     'success': onSuccess,
                     'fail': onFail
                 }
+
                 if (encoding) {
-                    options['encoding'] = encoding;
+                    options['encoding'] = encoding
                 }
                 fs.readFile(options)
                 return
@@ -198,7 +199,7 @@ export default class XMLHttpRequest extends EventTarget {
 
     addEventListener(type, listener) {
         if (typeof listener !== 'function') {
-            return;
+            return
         }
 
         this['on' + type] = (event = {}) => {
@@ -209,7 +210,7 @@ export default class XMLHttpRequest extends EventTarget {
 
     removeEventListener(type, listener) {
         if (this['on' + type] === listener) {
-            this['on' + type] = null;
+            this['on' + type] = null
         }
     }
 }
