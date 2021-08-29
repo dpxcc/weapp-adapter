@@ -6,6 +6,7 @@ import getImageComputedStyle from './style/ImageComputedStyle'
 import getCanvasComputedStyle from './style/CanvasComputedStyle'
 import Event from './Event'
 
+export { default as EventTarget } from './EventTarget'
 export { default as navigator } from './navigator'
 export { default as XMLHttpRequest } from './XMLHttpRequest'
 export { default as WebSocket } from './WebSocket'
