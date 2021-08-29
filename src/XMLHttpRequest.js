@@ -48,13 +48,21 @@ export default class XMLHttpRequest extends EventTarget {
         this.responseXML = null
         this.status = 0
         this.statusText = ''
-        this.upload = {}
+        this.upload = {
+            addEventListener: function () { }
+        }
         this.withCredentials = false
 
         _requestHeader.set(this, {
             'content-type': 'application/x-www-form-urlencoded'
         })
         _responseHeader.set(this, {})
+
+        this.UNSEND = XMLHttpRequest.UNSEND
+        this.OPENED = XMLHttpRequest.OPENED
+        this.HEADERS_RECEIVED = XMLHttpRequest.HEADERS_RECEIVED
+        this.LOADING = XMLHttpRequest.LOADING
+        this.DONE = XMLHttpRequest.DONE
     }
 
     abort() {
@@ -83,7 +91,7 @@ export default class XMLHttpRequest extends EventTarget {
         _changeReadyState.call(this, XMLHttpRequest.OPENED)
     }
 
-    overrideMimeType() {}
+    overrideMimeType() { }
 
     send(data = '') {
         if (this.readyState !== XMLHttpRequest.OPENED) {
@@ -131,7 +139,7 @@ export default class XMLHttpRequest extends EventTarget {
                     Object.defineProperty(this, 'responseText', {
                         enumerable: true,
                         configurable: true,
-                        get: function() {
+                        get: function () {
                             throw 'InvalidStateError : responseType is ' + this.responseType
                         }
                     })
