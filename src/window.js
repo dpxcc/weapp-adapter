@@ -5,6 +5,7 @@ import CommonComputedStyle from './style/CommonComputedStyle'
 import getImageComputedStyle from './style/ImageComputedStyle'
 import getCanvasComputedStyle from './style/CanvasComputedStyle'
 import Event from './Event'
+import './URL'
 
 export { default as EventTarget } from './EventTarget'
 export { default as navigator } from './navigator'
